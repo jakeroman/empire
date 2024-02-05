@@ -1,8 +1,12 @@
+// Dart Core Imports
 import 'package:flutter/material.dart';
 
+// Firebase Imports
 import 'package:firebase_core_dart/firebase_core_dart.dart';
 import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
+// Pages
 import 'pages/splash_screen.dart';
 
 void main() async {
