@@ -1,9 +1,14 @@
+// Dart Core Imports
+import 'package:empire/pages/auth_page.dart';
 import 'package:flutter/material.dart';
 
-import 'package:firebase_core_dart/firebase_core_dart.dart';
+// Firebase Imports
+import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 
-import 'pages/splash_screen.dart';
+// Pages
+//import 'pages/splash_screen.dart';
 
 void main() async {
   // Firebase Initialization
@@ -20,10 +25,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // Temporary auth printout
+    // FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    //   if (user == null) {
+    //     print('User is currently signed out!');
+    //   } else {
+    //     print('User is signed in!');
+    //   }
+    //});
+
+    // Launch auth flow widget
     return const MaterialApp(
-      home: SplashScreen(),
+      home: AuthPage(),
     );
   }
+
   // return MaterialApp(
   //   title: 'Flutter Demo',
   //   theme: ThemeData(
