@@ -1,6 +1,9 @@
 import 'package:empire/components/button.dart';
+import 'package:empire/pages/auth_page.dart';
+import 'package:empire/pages/extra_auth_pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:empire/pages/settings_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ConfirmSignoutPage extends StatefulWidget{
   const ConfirmSignoutPage({super.key});
@@ -19,7 +22,11 @@ class _ConfirmSignoutPageState extends State<ConfirmSignoutPage> {
   }
 
   void signUserOut() {
-    //FirebaseAuth.instance.signOut();
+    FirebaseAuth.instance.signOut();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AuthPage()),
+    );
   }
 
   @override
@@ -41,7 +48,7 @@ class _ConfirmSignoutPageState extends State<ConfirmSignoutPage> {
               children: [
                 Button(
                   text: "Yes",
-                  onTap: back,
+                  onTap: signUserOut,
                 ),
                 Button(
                   text: "No",
