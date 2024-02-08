@@ -1,6 +1,6 @@
-import 'package:empire/pages/password_reset.dart';
-import 'package:empire/pages/login_page.dart';
-import 'package:empire/pages/register_page.dart';
+import 'package:empire/pages/extra_auth_pages/password_reset.dart';
+import 'package:empire/pages/extra_auth_pages/login_page.dart';
+import 'package:empire/pages/extra_auth_pages/register_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginFlow extends StatefulWidget {
