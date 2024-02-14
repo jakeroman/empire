@@ -1,8 +1,10 @@
+import 'package:empire/components/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:empire/components/button.dart';
 import 'package:empire/pages/extra_settings_pages/personal_info_page.dart';
 import 'package:empire/pages/extra_settings_pages/appearance_page.dart';
 import 'package:empire/pages/extra_settings_pages/confirm_signout_page.dart';
+import 'package:empire/pages/navigation_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key,});
@@ -40,6 +42,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      backgroundColor: AppColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -55,6 +58,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   Icon(
                     Icons.settings,
                     size: 75,
+                    color: AppColors.gold,
                   ),
                 ]
               ),
@@ -62,7 +66,9 @@ class _SettingsPageState extends State<SettingsPage> {
               const Text(
                 'Settings',
                 style: TextStyle(
-                  fontSize: 20
+                  fontSize: 32,
+                    color: AppColors.text,
+                    fontWeight: FontWeight.bold,
                 ),
               ),
 
@@ -70,7 +76,7 @@ class _SettingsPageState extends State<SettingsPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 80),
 
                   Button(
                     text: "Personal Info",
@@ -87,6 +93,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         Icon(
                           Icons.chevron_right,
                           size: 20,
+                          color: AppColors.gold,
                         ),
                       ],
                     ),
@@ -98,7 +105,7 @@ class _SettingsPageState extends State<SettingsPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 80),
 
                   Button(
                     text: "Appearance",
@@ -115,6 +122,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         Icon(
                           Icons.chevron_right,
                           size: 20,
+                          color: AppColors.gold,
                         ),
                       ],
                     ),
@@ -126,7 +134,7 @@ class _SettingsPageState extends State<SettingsPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 80),
 
                   Button(
                     text: "Sign out",
@@ -143,6 +151,7 @@ class _SettingsPageState extends State<SettingsPage> {
                         Icon(
                           Icons.chevron_right,
                           size: 20,
+                          color: AppColors.gold,
                         ),
                       ],
                     ),
