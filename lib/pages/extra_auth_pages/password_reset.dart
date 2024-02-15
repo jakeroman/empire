@@ -61,12 +61,16 @@ class _PasswordResetState extends State<PasswordReset> {
           child: SingleChildScrollView(
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              SizedBox(height: 25),
-
               // logo
-              Icon(Icons.lock, size: 100, color: AppColors.hint),
+              Text(
+                "Empire",
+                style: TextStyle(
+                    color: AppColors.gold,
+                    fontSize: 60,
+                    fontWeight: FontWeight.bold),
+              ),
 
-              SizedBox(height: 25),
+              SizedBox(height: 50),
 
               // welcome back
               Text('Password Reset',

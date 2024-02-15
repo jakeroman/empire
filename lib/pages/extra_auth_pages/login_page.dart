@@ -67,12 +67,16 @@ class _LoginPageState extends State<LoginPage> {
           child: SingleChildScrollView(
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              SizedBox(height: 50),
-
               // logo
-              Icon(Icons.lock, size: 100, color: AppColors.hint),
+              Text(
+                "Empire",
+                style: TextStyle(
+                    color: AppColors.gold,
+                    fontSize: 60,
+                    fontWeight: FontWeight.bold),
+              ),
 
-              SizedBox(height: 50),
+              SizedBox(height: 25),
 
               // welcome back
               Text('Welcome back, you\'ve been missed!',
