@@ -1,13 +1,14 @@
 //import 'package:authenticationlab/pages/home_page.dart';
 import 'package:empire/pages/extra_auth_pages/login_flow.dart';
 import 'package:empire/pages/navigation_page.dart';
-import 'package:empire/pages/splash_screen.dart';
+import 'package:empire/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
 
+  // main logic
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,6 +17,15 @@ class AuthPage extends StatelessWidget {
             builder: (context, snapshot) {
               // user logged in
               if (snapshot.hasData) {
+                // create firebase userdata
+                final FirestoreService fss = FirestoreService();
+                User? user = FirebaseAuth.instance.currentUser;
+
+                if (user != null) {
+                  fss.verifyUserDataExists(user.uid);
+                }
+
+                // display the navigation page
                 return const NavigationPage();
               }
 
