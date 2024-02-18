@@ -101,6 +101,14 @@ class FirestoreService {
   void initializeFirestoreService() async {
     String userId = getUserId();
 
+    // Ensure user info has an entry to avoid infinite yield on cache wait
+    DocumentReference userDocRef = firestore
+        .collection('users')
+        .doc(userId)
+        .collection('data')
+        .doc('info');
+    await userDocRef.set({"integrity": true}, SetOptions(merge: true));
+
     // Prepare the user info cache
     fetchAndCacheUserInfo(userId);
 
@@ -110,8 +118,6 @@ class FirestoreService {
     // Begin listening for cache changes
     listenToUserInfoChanges(userId);
 
-    // Ensure that the user has a data entry in firestore
-    updateUserInfo("integrity", true);
     // final defaultUserInfo = <String, dynamic>{
     //   "first_name": "User",
     // };
