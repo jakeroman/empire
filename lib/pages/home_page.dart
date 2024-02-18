@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:empire/components/app_colors.dart';
+import 'package:empire/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,6 +9,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirestoreService fss = FirestoreService();
     return Center(
       child: SingleChildScrollView(
         child: Column(
@@ -19,7 +21,7 @@ class HomePage extends StatelessWidget {
               style: TextStyle(color: AppColors.hint, fontSize: 16),
             ),
             Text(
-              'User',
+              fss.getUserInfo("first_name"),
               style: TextStyle(color: AppColors.text, fontSize: 28),
             ),
 
