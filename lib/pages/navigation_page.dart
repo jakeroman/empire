@@ -3,6 +3,7 @@
 import 'package:empire/components/app_colors.dart';
 import 'package:empire/pages/home_page.dart';
 import 'package:empire/pages/settings_page.dart';
+import 'package:empire/pages/todo_page.dart';
 import 'package:flutter/material.dart';
 
 class NavigationPage extends StatefulWidget {
@@ -30,6 +31,9 @@ class _NavigationPageState extends State<NavigationPage> {
     } else if (page == "settings") {
       // settings page
       pageWidget = SettingsPage();
+    } else if (page == "todo") {
+      // todo page
+      pageWidget = ToDoPage();
     } else {
       // unknown page
       pageWidget = Center();
