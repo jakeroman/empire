@@ -1,5 +1,6 @@
 import 'package:empire/components/app_colors.dart';
 import 'package:empire/pages/home_page.dart';
+import 'package:empire/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:empire/components/button.dart';
 import 'package:empire/components/my_textfield.dart';
@@ -17,6 +18,13 @@ class _FirstRegisterPageState extends State<FirstRegisterPage> {
 
   // More controllers to come soon(TM)
 
+  // method to save user data to firebase
+  void saveDataToFirebase() {
+    FirestoreService fss = FirestoreService();
+    fss.updateUserInfo("first_name", firstNameController.text);
+    toHomePage();
+  }
+  
   // Method to push page
   toHomePage() {
     Navigator.push(
@@ -86,7 +94,7 @@ class _FirstRegisterPageState extends State<FirstRegisterPage> {
               const SizedBox(height: 60),
 
               Button(
-                onTap: toHomePage,
+                onTap: saveDataToFirebase,
                 text: 'Continue to your Empire!'
               ),
             ]
