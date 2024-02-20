@@ -23,6 +23,7 @@ class _NavigationPageState extends State<NavigationPage> {
   // application container
   @override
   Widget build(BuildContext context) {
+    // prepare page widget
     if (page == "home") {
       // home page
       pageWidget = HomePage();
