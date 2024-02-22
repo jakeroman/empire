@@ -19,7 +19,7 @@ class _SettingsPageState extends State<SettingsPage> {
   personalInfo() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const PersonalInfoPage()),
+      MaterialPageRoute(builder: (context) =>  PersonalInfoPage()),
     );
   }
 
