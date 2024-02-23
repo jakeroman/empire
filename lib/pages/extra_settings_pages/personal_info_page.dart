@@ -19,6 +19,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
   // Go back to settings page
   back() {
     Navigator.pop(context);
+    setState(() {
+      
+    });
   }
 
   // Go to change info page
@@ -110,7 +113,7 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
               onTap: changeName,
             ),
 
-            const SizedBox(height: 250),
+            const SizedBox(height: 100),
 
             Button(
               text: "Back to settings page",

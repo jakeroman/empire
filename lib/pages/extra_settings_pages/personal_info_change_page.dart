@@ -22,6 +22,9 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
   // Go back to settings page
   back() {
     Navigator.pop(context);
+    setState(() {
+      
+    });
   }
 
   void changeInfo() {
@@ -31,7 +34,6 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
 
     // update user info version to latest
     fss.updateUserInfo("info_version", AuthPage.currentUserInfoVersion);
-    back();
   }
 
   @override
@@ -67,7 +69,7 @@ class _PersonalInfoChangePageState extends State<PersonalInfoChangePage> {
               onTap: changeInfo,
             ),
 
-            const SizedBox(height: 350),
+            const SizedBox(height: 100),
 
             Button(
               text: "Back to personal info page",
