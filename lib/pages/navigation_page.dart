@@ -5,6 +5,7 @@ import 'package:empire/pages/home_page.dart';
 import 'package:empire/pages/settings_page.dart';
 import 'package:empire/pages/todo_page.dart';
 import 'package:flutter/material.dart';
+import 'package:empire/pages/fitness_page.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({super.key});
@@ -34,6 +35,9 @@ class _NavigationPageState extends State<NavigationPage> {
     } else if (page == "todo") {
       // todo page
       pageWidget = ToDoPage();
+    } else if (page == "fitness") {
+      //fitness page
+      pageWidget = FitnessPage();
     } else {
       // unknown page
       pageWidget = Center();
@@ -59,6 +63,15 @@ class _NavigationPageState extends State<NavigationPage> {
               icon: Icon(
                 Icons.today,
                 color: (page == "todo" ? AppColors.text : AppColors.raised),
+              ),
+            ),
+            //FItness button
+            SizedBox(width: 20),
+            IconButton(
+              onPressed: () => setState(() => page = "fitness"),
+              icon: Icon(
+                Icons.fitness_center,
+                color: (page == "fitness" ? AppColors.text : AppColors.raised),
               ),
             ),
             SizedBox(width: 20),
