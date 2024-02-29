@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
 
   String tasksAvailable() {
     FirestoreService fss = FirestoreService();
-    if (fss.getUserInfo("todo_tasks") == "Data Error") {
+    if (TodoService.getToDoList().isEmpty) {
       return "No tasks available";
     }
     else {
