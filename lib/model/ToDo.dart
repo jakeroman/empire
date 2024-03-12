@@ -39,7 +39,7 @@ class ToDo {
       'todoText': task.todoText,
       'isDone': task.isDone,
       'dueDate': task.dueDate.millisecondsSinceEpoch,
-      'finishBy': task.dueDate.millisecondsSinceEpoch,
+      'finishBy': task.finishBy.millisecondsSinceEpoch,
     };
   }
 }
