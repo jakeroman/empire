@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class ToDo {
   String? id;
   String? todoText;
@@ -24,9 +26,20 @@ class ToDo {
   // json conversion
   factory ToDo.fromJson(Map<String, dynamic> json) {
     return ToDo(
-        id: json["id"], todoText: json["todoText"], isDone: json["isDone"], dueDate: json["dueDate"], finishBy: json["finishBy"]);
+      id: json["id"],
+      todoText: json["todoText"],
+      isDone: json["isDone"],
+      dueDate: DateTime.fromMillisecondsSinceEpoch(json["dueDate"]),
+      finishBy: DateTime.fromMillisecondsSinceEpoch(json["finishBy"]),
+    );
   }
   static Map<String, dynamic> toJson(ToDo task) {
-    return {'id': task.id, 'todoText': task.todoText, 'isDone': task.isDone, 'dueDate': task.dueDate, 'finishBy': task.finishBy};
+    return {
+      'id': task.id,
+      'todoText': task.todoText,
+      'isDone': task.isDone,
+      'dueDate': task.dueDate.millisecondsSinceEpoch,
+      'finishBy': task.dueDate.millisecondsSinceEpoch,
+    };
   }
 }
