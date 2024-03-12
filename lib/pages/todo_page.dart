@@ -1,7 +1,9 @@
+import 'package:bottom_picker/bottom_picker.dart';
 import 'package:empire/components/app_colors.dart';
 import 'package:empire/components/todo_item.dart';
 import 'package:empire/model/ToDo.dart';
 import 'package:empire/services/todo_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ToDoPage extends StatefulWidget {
@@ -22,6 +24,7 @@ class _ToDoPageState extends State<ToDoPage> {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.gold,
+        leading: Container(),
         title: const Center(
           child: Text(
             'Task List',
@@ -57,6 +60,7 @@ class _ToDoPageState extends State<ToDoPage> {
             alignment: Alignment.bottomCenter,
             child: Row(
               children: [
+                // Child for the text field
                 Expanded(
                   child: Container(
                     margin:
@@ -86,13 +90,22 @@ class _ToDoPageState extends State<ToDoPage> {
                       ),
                       style: const TextStyle(color: AppColors.text),
                     ),
+                    
                   ),
                 ),
+
+
+                //Container for add task button
                 Container(
                   margin: const EdgeInsets.only(bottom: 20, right: 20),
                   child: ElevatedButton(
-                    onPressed: () {
-                      _addToDoItem(_todoController.text);
+                    onPressed: (){
+
+                      //Asks for a date input
+                      _openDatePicker(context);
+
+                      // Adds the item to the list
+                      //_addToDoItem(_todoController.text);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.hint,
@@ -116,6 +129,21 @@ class _ToDoPageState extends State<ToDoPage> {
     );
   }
 
+  void _openDatePicker(BuildContext context){
+    BottomPicker.range(
+      title: 'Select when it must be finished and when you plan to finish it.',
+      dateOrder: DatePickerDateOrder.dmy,
+      minFirstDate:  DateTime.now(),
+	    minSecondDate:  DateTime.now(),
+      pickerTextStyle: const TextStyle(color: AppColors.text, fontSize: 12),
+      titleStyle: const TextStyle(color: AppColors.text),
+      onRangeDateSubmitPressed: (dueDate, finishBy) {
+        _addToDoItem(_todoController.text, dueDate, finishBy);
+      },
+      backgroundColor: AppColors.background,
+    ).show(context);
+  }
+
   void _handleToDoChange(ToDo todo) {
     setState(() {
       todo.isDone = !todo.isDone;
@@ -130,13 +158,17 @@ class _ToDoPageState extends State<ToDoPage> {
     TodoService.saveToDoList(todosList); // save todo change to firebase
   }
 
-  void _addToDoItem(String todo) {
+  void _addToDoItem(String todo, DateTime date, DateTime finish) {
     setState(() {
       todosList.add(ToDo(
           id: DateTime.now().millisecondsSinceEpoch.toString(),
-          todoText: todo));
+          todoText: todo,
+          dueDate: date,
+          finishBy: finish));
     });
     _todoController.clear();
     TodoService.saveToDoList(todosList); // save todo change to firebase
   }
+
+  
 }

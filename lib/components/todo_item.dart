@@ -35,6 +35,15 @@ class ToDoItem extends StatelessWidget {
             decoration: todo.isDone? TextDecoration.lineThrough : null,
           ),
         ),
+        subtitle: Text(
+          // todo.dueDate.toString(),
+          "Due: ${todo.dueDate.month.toString().padLeft(2,'0')} - ${todo.dueDate.day.toString().padLeft(2,'0')} - ${todo.dueDate.year.toString()}\nPlanned Finish: ${todo.dueDate.month.toString().padLeft(2,'0')} - ${todo.dueDate.day.toString().padLeft(2,'0')} - ${todo.dueDate.year.toString()}",
+          style: TextStyle(
+            color: AppColors.text, 
+            fontSize: 14, 
+            decoration: todo.isDone? TextDecoration.lineThrough : null,
+          ),
+        ),
         trailing: Container(
           padding: const EdgeInsets.all(0),
           margin: const EdgeInsets.symmetric(vertical: 12),
