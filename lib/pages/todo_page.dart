@@ -23,8 +23,8 @@ class _ToDoPageState extends State<ToDoPage> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
+        leading: null,
         backgroundColor: AppColors.gold,
-        leading: Container(),
         title: const Center(
           child: Text(
             'Task List',
@@ -90,17 +90,14 @@ class _ToDoPageState extends State<ToDoPage> {
                       ),
                       style: const TextStyle(color: AppColors.text),
                     ),
-                    
                   ),
                 ),
-
 
                 //Container for add task button
                 Container(
                   margin: const EdgeInsets.only(bottom: 20, right: 20),
                   child: ElevatedButton(
-                    onPressed: (){
-
+                    onPressed: () {
                       //Asks for a date input
                       _openDatePicker(context);
 
@@ -129,12 +126,12 @@ class _ToDoPageState extends State<ToDoPage> {
     );
   }
 
-  void _openDatePicker(BuildContext context){
+  void _openDatePicker(BuildContext context) {
     BottomPicker.range(
       title: 'Select when it must be finished and when you plan to finish it.',
       dateOrder: DatePickerDateOrder.dmy,
-      minFirstDate:  DateTime.now(),
-	    minSecondDate:  DateTime.now(),
+      minFirstDate: DateTime.now(),
+      minSecondDate: DateTime.now(),
       pickerTextStyle: const TextStyle(color: AppColors.text, fontSize: 12),
       titleStyle: const TextStyle(color: AppColors.text),
       onRangeDateSubmitPressed: (dueDate, finishBy) {
@@ -169,6 +166,4 @@ class _ToDoPageState extends State<ToDoPage> {
     _todoController.clear();
     TodoService.saveToDoList(todosList); // save todo change to firebase
   }
-
-  
 }
