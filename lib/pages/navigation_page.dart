@@ -4,6 +4,7 @@ import 'package:empire/components/app_colors.dart';
 import 'package:empire/pages/home_page.dart';
 import 'package:empire/pages/settings_page.dart';
 import 'package:empire/pages/todo_page.dart';
+import 'package:empire/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:empire/pages/fitness_page.dart';
 
@@ -43,12 +44,30 @@ class _NavigationPageState extends State<NavigationPage> {
       pageWidget = Center();
     }
 
+    // wallpaper selector
+    BoxDecoration? wallpaper;
+    FirestoreService fss = FirestoreService();
+    if (fss.getUserInfo("wallpaper") is String &&
+        fss.getUserInfo("wallpaper").contains(RegExp("http"))) {
+      wallpaper = BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(
+            fss.getUserInfo("wallpaper"),
+          ),
+          fit: BoxFit.cover,
+        ),
+      );
+    }
+
     // build application widget
     return Scaffold(
       backgroundColor: AppColors.background,
 
       // body contains the active page
-      body: SafeArea(child: pageWidget),
+      body: Container(
+        decoration: wallpaper,
+        child: pageWidget,
+      ),
 
       // navigation bar
       bottomNavigationBar: BottomAppBar(
