@@ -21,8 +21,7 @@ class _HomePageState extends State<HomePage> {
     FirestoreService fss = FirestoreService();
     if (TodoService.getToDoList().isEmpty) {
       return "No tasks available";
-    }
-    else {
+    } else {
       return "Upcoming tasks:";
     }
   }
@@ -35,6 +34,8 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 30),
+
             // welcome user
             Text(
               'Welcome to your Empire',
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(color: AppColors.text, fontSize: 28),
             ),
 
-            SizedBox(height: 100), // padding
+            SizedBox(height: 70), // padding
 
             // to do list overview
             Text(
@@ -67,10 +68,8 @@ class _HomePageState extends State<HomePage> {
                     tasksAvailable(),
                     style: TextStyle(color: AppColors.text, fontSize: 18),
                   ),
-                  
                   SizedBox(height: 15),
-
-                  for(ToDo todo in todosList)
+                  for (ToDo todo in todosList)
                     Column(
                       children: [
                         Container(
