@@ -70,29 +70,30 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: 15),
                   for (ToDo todo in todosList)
-                    Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.symmetric(horizontal: 10),
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: AppColors.hint,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                            todo.todoText!,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: AppColors.text,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                    if (todo.dueDate.day == DateTime.now().day)
+                      Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: AppColors.hint,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              todo.todoText!,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: AppColors.text,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(height: 10),
-                      ],
-                    ),
+                          SizedBox(height: 10),
+                        ],
+                      ),
                 ],
               ),
             ),
