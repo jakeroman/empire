@@ -37,7 +37,7 @@ class ToDoItem extends StatelessWidget {
         ),
         subtitle: Text(
           // todo.dueDate.toString(),
-          "Due: ${todo.dueDate.month.toString().padLeft(2,'0')} - ${todo.dueDate.day.toString().padLeft(2,'0')} - ${todo.dueDate.year.toString()}\nPlanned Finish: ${todo.finishBy.month.toString().padLeft(2,'0')} - ${todo.finishBy.day.toString().padLeft(2,'0')} - ${todo.finishBy.year.toString()}",
+          "Finish by: ${todo.finishBy.month.toString().padLeft(2,'0')} - ${todo.finishBy.day.toString().padLeft(2,'0')} - ${todo.finishBy.year.toString()}\nDue By: ${todo.dueDate.month.toString().padLeft(2,'0')} - ${todo.dueDate.day.toString().padLeft(2,'0')} - ${todo.dueDate.year.toString()}",
           style: TextStyle(
             color: AppColors.text, 
             fontSize: 14, 

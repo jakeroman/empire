@@ -128,13 +128,13 @@ class _ToDoPageState extends State<ToDoPage> {
 
   void _openDatePicker(BuildContext context) {
     BottomPicker.range(
-      title: 'Select when it must be finished and when you plan to finish it.',
+      title: 'Select when you plan to finish it and when it is due.',
       dateOrder: DatePickerDateOrder.dmy,
       minFirstDate: DateTime.now(),
       minSecondDate: DateTime.now(),
       pickerTextStyle: const TextStyle(color: AppColors.text, fontSize: 12),
       titleStyle: const TextStyle(color: AppColors.text),
-      onRangeDateSubmitPressed: (dueDate, finishBy) {
+      onRangeDateSubmitPressed: (finishBy, dueDate) {
         _addToDoItem(_todoController.text, dueDate, finishBy);
       },
       backgroundColor: AppColors.background,
