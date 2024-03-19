@@ -39,19 +39,19 @@ class _HomePageState extends State<HomePage> {
             // welcome user
             Text(
               'Welcome to your Empire',
-              style: TextStyle(color: AppColors.hint, fontSize: 16),
+              style: TextStyle(color: AppColors.gold, fontSize: 22, fontWeight: FontWeight.bold),
             ),
             Text(
               fss.getUserInfo("first_name"),
-              style: TextStyle(color: AppColors.text, fontSize: 28),
+              style: TextStyle(color: AppColors.text, fontSize: 32),
             ),
 
-            SizedBox(height: 70), // padding
+            SizedBox(height: 55), // padding
 
             // to do list overview
             Text(
               'Alert Center',
-              style: TextStyle(color: AppColors.hint, fontSize: 22),
+              style: TextStyle(color: AppColors.gold, fontSize: 22, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 16),
             Container(
