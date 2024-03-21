@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:empire/components/app_colors.dart';
+import 'package:empire/pages/extra_runs_pages/runs_flow.dart';
 import 'package:empire/pages/home_page.dart';
 import 'package:empire/pages/settings_page.dart';
 import 'package:empire/pages/todo_page.dart';
@@ -41,7 +42,7 @@ class _NavigationPageState extends State<NavigationPage> {
       pageWidget = FitnessPage();
     } else if (page == "runs") {
       // runs page
-      //pageWidget = RunsPageHERE();
+      pageWidget = RunsFlow();
     } else {
       // unknown page
       pageWidget = Center();
