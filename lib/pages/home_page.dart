@@ -1,11 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:empire/components/app_colors.dart';
-import 'package:empire/pages/todo_page.dart';
 import 'package:empire/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:empire/services/todo_service.dart';
 import "package:empire/model/ToDo.dart";
-import 'package:empire/components/todo_item.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,7 +16,6 @@ class _HomePageState extends State<HomePage> {
   final todosList = TodoService.getToDoList();
 
   String tasksAvailable() {
-    FirestoreService fss = FirestoreService();
     if (TodoService.getToDoList().isEmpty) {
       return "No tasks available";
     } else {
