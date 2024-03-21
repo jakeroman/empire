@@ -5,12 +5,20 @@ void main() {
   runApp(FitnessPage());
 }
 
+enum MuscleGroup { arms, legs, back, abs, rest }
+
 class Exercise {
   String name;
   int sets;
   int reps;
+  List<MuscleGroup> muscleGroups;
 
-  Exercise({required this.name, required this.sets, required this.reps});
+  Exercise({
+    required this.name,
+    required this.sets,
+    required this.reps,
+    this.muscleGroups = const [],
+  });
 }
 
 class WorkoutDay {
@@ -27,93 +35,23 @@ class FitnessPage extends StatefulWidget {
 }
 
 class _FitnessPageState extends State<FitnessPage> {
-  final List<WorkoutDay> workoutSchedule = [];
+  final List<WorkoutDay> workoutSchedule = [
+    WorkoutDay(day: 'Monday'),
+    WorkoutDay(day: 'Tuesday'),
+    WorkoutDay(day: 'Wednesday'),
+    WorkoutDay(day: 'Thursday'),
+    WorkoutDay(day: 'Friday'),
+    WorkoutDay(day: 'Saturday'),
+    WorkoutDay(day: 'Sunday'),
+  ];
 
   static const int asManyRepsAsPossible = -1;
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: AppColors.background,
-        appBar: AppBar(
-          title: Text('Fitness Planner'),
-          backgroundColor: AppColors.gold,
-        ),
-        body: ListView.builder(
-          itemCount: workoutSchedule.length,
-          itemBuilder: (context, index) {
-            final workoutDay = workoutSchedule[index];
-            return Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.gold),
-                borderRadius: BorderRadius.circular(8),
-                //margin: EdgeInsets.all(8.0),
-              ),
-              child: ExpansionTile(
-                title: Text(
-                  workoutDay.day,
-                  style: TextStyle(color: AppColors.gold, fontSize: 16),
-                ),
-                children: [
-                  ...workoutDay.exercises.map(
-                    (exercise) {
-                      return ListTile(
-                        title: Text(
-                          "${exercise.name}: ${exercise.sets} sets of ${exercise.reps == asManyRepsAsPossible ? 'AMRAP' : exercise.reps} reps",
-                          style: TextStyle(
-                            color: const Color.fromARGB(255, 97, 148, 179),
-                            fontSize: 16,
-                          ),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.edit),
-                              onPressed: () {
-                                _editExercise(index, exercise);
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () {
-                                _deleteExercise(index, exercise);
-                              },
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ).toList(),
-                  ListTile(
-                    title: TextButton(
-                      child: Text(
-                        'Add Exercise',
-                        style: TextStyle(color: AppColors.gold),
-                      ),
-                      onPressed: () {
-                        _addExercise(index);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _addWorkoutDay,
-          child: Icon(Icons.add),
-          backgroundColor: AppColors.gold,
-        ),
-      ),
-    );
-  }
-
   void _editExercise(int dayIndex, Exercise exercise) {
     String name = exercise.name;
+
     int sets = exercise.sets;
+
     int reps = exercise.reps;
 
     showDialog(
@@ -181,11 +119,15 @@ class _FitnessPageState extends State<FitnessPage> {
                 if (name.isNotEmpty && sets > 0 && reps >= 0) {
                   setState(() {
                     workoutSchedule[dayIndex].exercises[
-                            workoutSchedule[dayIndex]
-                                .exercises
-                                .indexOf(exercise)] =
-                        Exercise(name: name, sets: sets, reps: reps);
+                        workoutSchedule[dayIndex]
+                            .exercises
+                            .indexOf(exercise)] = Exercise(
+                        name: name,
+                        sets: sets,
+                        reps: reps,
+                        muscleGroups: exercise.muscleGroups);
                   });
+
                   Navigator.of(context).pop();
                 }
               },
@@ -203,13 +145,84 @@ class _FitnessPageState extends State<FitnessPage> {
     });
   }
 
+  void _editMuscleGroups(int dayIndex, Exercise exercise) {
+    List<MuscleGroup> selectedMuscleGroups = exercise.muscleGroups.toList();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              backgroundColor: AppColors.background,
+              title: Text(
+                'Select Muscle Group(s)',
+                style: TextStyle(color: AppColors.gold),
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (MuscleGroup group in MuscleGroup.values)
+                    CheckboxListTile(
+                      title: Text(
+                        group.name.toUpperCase(),
+                        style: TextStyle(
+                            color: const Color.fromARGB(255, 97, 148, 179)),
+                      ),
+                      value: selectedMuscleGroups.contains(group),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          if (value == true) {
+                            selectedMuscleGroups.add(group);
+                          } else {
+                            selectedMuscleGroups.remove(group);
+                          }
+                        });
+                      },
+                    ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      workoutSchedule[dayIndex]
+                          .exercises[workoutSchedule[dayIndex]
+                              .exercises
+                              .indexOf(exercise)]
+                          .muscleGroups = selectedMuscleGroups;
+                    });
+
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Save'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
   void _addExercise(int dayIndex) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         String name = '';
+
         int sets = 0;
+
         int reps = 0;
+
+        List<MuscleGroup> muscleGroups = [];
+
         return AlertDialog(
           backgroundColor: AppColors.background,
           title: Text(
@@ -269,9 +282,15 @@ class _FitnessPageState extends State<FitnessPage> {
                 if (name.isNotEmpty && sets > 0 && reps >= 0) {
                   setState(() {
                     workoutSchedule[dayIndex].exercises.add(
-                          Exercise(name: name, sets: sets, reps: reps),
+                          Exercise(
+                            name: name,
+                            sets: sets,
+                            reps: reps,
+                            muscleGroups: muscleGroups,
+                          ),
                         );
                   });
+
                   Navigator.of(context).pop();
                 }
               },
@@ -283,49 +302,180 @@ class _FitnessPageState extends State<FitnessPage> {
     );
   }
 
-  void _addWorkoutDay() {
+  void _addMuscleGroups(int dayIndex) {
+    List<MuscleGroup> selectedMuscleGroups = [];
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        String day = '';
-        return AlertDialog(
-          backgroundColor: AppColors.background,
-          title: Text(
-            'Add Workout Day',
-            style: TextStyle(color: AppColors.gold),
-          ),
-          content: TextField(
-            style: TextStyle(color: const Color.fromARGB(255, 97, 148, 179)),
-            onChanged: (value) {
-              day = value;
-            },
-            decoration: InputDecoration(
-              hintText: 'Enter day',
-              hintStyle:
-                  TextStyle(color: const Color.fromARGB(255, 97, 148, 179)),
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                if (day.isNotEmpty) {
-                  setState(() {
-                    workoutSchedule.add(WorkoutDay(day: day));
-                  });
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text('Add'),
-            ),
-          ],
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              backgroundColor: AppColors.background,
+              title: Text(
+                'Select Muscle Group(s)',
+                style: TextStyle(color: AppColors.gold),
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (MuscleGroup group in MuscleGroup.values)
+                    CheckboxListTile(
+                      title: Text(
+                        group.name.toUpperCase(),
+                        style: TextStyle(
+                            color: const Color.fromARGB(255, 97, 148, 179)),
+                      ),
+                      value: selectedMuscleGroups.contains(group),
+                      onChanged: (bool? value) {
+                        setState(() {
+                          if (value == true) {
+                            selectedMuscleGroups.add(group);
+                          } else {
+                            selectedMuscleGroups.remove(group);
+                          }
+                        });
+                      },
+                    ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      if (workoutSchedule[dayIndex].exercises.isNotEmpty) {
+                        workoutSchedule[dayIndex].exercises[0].muscleGroups =
+                            selectedMuscleGroups;
+                      } else {
+                        workoutSchedule[dayIndex].exercises.add(Exercise(
+                              name: '',
+                              sets: 0,
+                              reps: 0,
+                              muscleGroups: selectedMuscleGroups,
+                            ));
+                      }
+                    });
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Save'),
+                ),
+              ],
+            );
+          },
         );
       },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+          title: Text('Fitness Planner'),
+          backgroundColor: AppColors.gold,
+        ),
+        body: ListView.builder(
+          itemCount: workoutSchedule.length,
+          itemBuilder: (context, index) {
+            final workoutDay = workoutSchedule[index];
+            return Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: AppColors.gold),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: ExpansionTile(
+                title: Text(
+                  workoutDay.day,
+                  style: TextStyle(color: AppColors.gold, fontSize: 16),
+                ),
+                children: [
+                  ...workoutDay.exercises.map(
+                    (exercise) {
+                      if (exercise.name.isEmpty &&
+                          exercise.sets == 0 &&
+                          exercise.reps == 0 &&
+                          exercise.muscleGroups.isNotEmpty) {
+                        return ListTile(
+                          title: Text(
+                            "Muscle Group(s): ${exercise.muscleGroups.map((group) => group.name.toUpperCase()).join(', ')}",
+                            style: TextStyle(
+                              color: const Color.fromARGB(255, 97, 148, 179),
+                              fontSize: 16,
+                            ),
+                          ),
+                        );
+                      } else {
+                        return ListTile(
+                          title: Text(
+                            "${exercise.name}: ${exercise.sets} sets of ${exercise.reps == asManyRepsAsPossible ? 'AMRAP' : exercise.reps} reps${exercise.muscleGroups.isNotEmpty ? ' (${exercise.muscleGroups.map((group) => group.name.toUpperCase()).join(', ')})' : ''}",
+                            style: TextStyle(
+                              color: const Color.fromARGB(255, 97, 148, 179),
+                              fontSize: 16,
+                            ),
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.edit),
+                                onPressed: () {
+                                  _editExercise(index, exercise);
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.fitness_center),
+                                onPressed: () {
+                                  _editMuscleGroups(index, exercise);
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () {
+                                  _deleteExercise(index, exercise);
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                    },
+                  ).toList(),
+                  ListTile(
+                    title: TextButton(
+                      child: Text(
+                        'Add Muscle Group(s)',
+                        style: TextStyle(color: AppColors.gold),
+                      ),
+                      onPressed: () {
+                        _addMuscleGroups(index);
+                      },
+                    ),
+                  ),
+                  ListTile(
+                    title: TextButton(
+                      child: Text(
+                        'Add Exercise',
+                        style: TextStyle(color: AppColors.gold),
+                      ),
+                      onPressed: () {
+                        _addExercise(index);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
