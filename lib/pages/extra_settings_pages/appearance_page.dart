@@ -32,6 +32,8 @@ class _AppearancePageState extends State<AppearancePage> {
 
     // update user info version to latest
     fss.updateUserInfo("info_version", AuthPage.currentUserInfoVersion);
+
+    back();
   }
 
   @override
