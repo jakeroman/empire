@@ -37,8 +37,11 @@ class _NavigationPageState extends State<NavigationPage> {
       // todo page
       pageWidget = ToDoPage();
     } else if (page == "fitness") {
-      //fitness page
+      // fitness page
       pageWidget = FitnessPage();
+    } else if (page == "runs") {
+      // runs page
+      //pageWidget = RunsPageHERE();
     } else {
       // unknown page
       pageWidget = Center();
@@ -85,7 +88,7 @@ class _NavigationPageState extends State<NavigationPage> {
               ),
             ),
             //FItness button
-            SizedBox(width: 20),
+            SizedBox(width: 10),
             IconButton(
               onPressed: () => setState(() => page = "fitness"),
               icon: Icon(
@@ -93,7 +96,7 @@ class _NavigationPageState extends State<NavigationPage> {
                 color: (page == "fitness" ? AppColors.text : AppColors.raised),
               ),
             ),
-            SizedBox(width: 20),
+            SizedBox(width: 10),
             // home button
             IconButton(
               onPressed: () => setState(() => page = "home"),
@@ -102,7 +105,16 @@ class _NavigationPageState extends State<NavigationPage> {
                 color: (page == "home" ? AppColors.text : AppColors.raised),
               ),
             ),
-            SizedBox(width: 20),
+            SizedBox(width: 10),
+            // past runs button
+            IconButton(
+              onPressed: () => setState(() => page = "runs"),
+              icon: Icon(
+                Icons.directions_run,
+                color: (page == "runs" ? AppColors.text : AppColors.raised),
+              ),
+            ),
+            SizedBox(width: 10),
             // settings button
             IconButton(
               onPressed: () => setState(() => page = "settings"),
