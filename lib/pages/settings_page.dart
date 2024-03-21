@@ -49,20 +49,16 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(height: 50),
-            
-                  // Settings icon
-                  Icon(
-                    Icons.settings,
-                    size: 75,
-                    color: AppColors.gold,
-                  ),
-                ]
+              const SizedBox(height: 60),
+
+              const Icon(
+                Icons.settings,
+                size: 75,
+                color: AppColors.gold,
               ),
-              
+
+              const SizedBox(height: 25),
+
               const Text(
                 'Settings',
                 style: TextStyle(
@@ -72,93 +68,27 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
 
-              // personal info setting
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 80),
+              const SizedBox(height: 45),
 
-                  Button(
-                    text: "Personal Info",
-                    onTap: personalInfo,
-                  ),
-
-                  const SizedBox(width: 80),
-
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 45.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Icon(
-                          Icons.chevron_right,
-                          size: 20,
-                          color: AppColors.gold,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              Button(
+                text:'Personal Info',
+                onTap: personalInfo,
               ),
 
-              // appearance setting
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 80),
+              const SizedBox(height: 30),
 
-                  Button(
-                    text: "Appearance",
-                    onTap: appearance,
-                  ),
-
-                  const SizedBox(width: 90),
-
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 45.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Icon(
-                          Icons.chevron_right,
-                          size: 20,
-                          color: AppColors.gold,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              Button(
+                text:'Appearance',
+                onTap: appearance,
               ),
 
-              // sign out setting
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 80),
+              const SizedBox(height: 30),
 
-                  Button(
-                    text: "Sign out",
-                    onTap: signOut,
-                  ),
-
-                  const SizedBox(width: 115),
-
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 45.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Icon(
-                          Icons.chevron_right,
-                          size: 20,
-                          color: AppColors.gold,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              Button(
+                text:'Sign Out',
+                onTap: signOut,
               ),
-            ]
+            ],
           ),
         ),
       ),
