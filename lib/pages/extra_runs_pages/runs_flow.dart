@@ -10,7 +10,7 @@ class RunsFlow extends StatefulWidget {
 }
 
 class _RunsFlowState extends State<RunsFlow> {
-  bool showRunsPage = true; // true = runs page, false = current run page
+  bool showRunsPage = false; // true = runs page, false = current run page
 
   // page toggle
   void togglePages() {
@@ -22,9 +22,9 @@ class _RunsFlowState extends State<RunsFlow> {
   @override
   Widget build(BuildContext context) {
     // route user to Runs page or Current Run page
-    if(showRunsPage){
+    if (showRunsPage) {
       return const RunsPage();
-    }else{
+    } else {
       return const CurrentRunPage();
     }
   }
